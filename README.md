@@ -1,4 +1,4 @@
-# QualityLab Pro-API RESTful for internal laboratory quality control.
+# AuthUserManagementAPI
 
 <p align="center">
 <img src="https://img.shields.io/static/v1?label=STATUS&message=In%20progress&color=RED&style=for-the-badge" alt="Em desenvolvimento"/>
