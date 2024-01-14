@@ -1,0 +1,20 @@
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    date_birth DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    is_enable BOOLEAN NOT NULL,
+    is_account_non_expired BOOLEAN NOT NULL,
+    is_account_non_locked BOOLEAN NOT NULL,
+    is_Credential_non_expired BOOLEAN NOT NULL,
+    user_roles VARCHAR(25) NOT NULL,
+    INDEX idx_username (username),
+    INDEX idx_email (email),
+    INDEX idx_is_enable (is_enable),
+    INDEX idx_user_roles (user_roles)
+);
