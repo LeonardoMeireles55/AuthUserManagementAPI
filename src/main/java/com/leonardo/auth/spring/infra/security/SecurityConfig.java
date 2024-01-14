@@ -47,6 +47,7 @@ public class SecurityConfig {
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-ui")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.GET, "/admin/users/get-all-users").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PATCH, "/admin/users/roles/update").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PATCH, "/admin/users/logical-delete").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/admin/users/deleteUser").hasRole("ADMIN")
                                 .anyRequest().authenticated()

@@ -61,7 +61,6 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.userRoles == UserRoles.ADMIN) {
-            System.out.println(this.userRoles);
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_FREE"),
                     new SimpleGrantedAuthority("ROLE_PREMIUM"));
         } else return List.of(new SimpleGrantedAuthority("ROLE_FREE"));

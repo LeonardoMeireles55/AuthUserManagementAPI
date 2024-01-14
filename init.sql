@@ -1,1 +1,0 @@
-CREATE DATABASE IF NOT EXISTS auth_user_db;

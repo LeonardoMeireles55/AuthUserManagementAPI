@@ -33,4 +33,10 @@ public class UserAdminController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+    @PatchMapping
+    @PreAuthorize(("hasRole('ROLE_ADMIN)"))
+    @RequestMapping(value = "/users/roles/update", method = RequestMethod.PATCH)
+    public void updateUserRoles(String username, String userRoles) {
+        userService.updateUserRoles(username, userRoles);
+    }
 }

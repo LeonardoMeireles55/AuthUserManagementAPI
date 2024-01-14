@@ -2,6 +2,7 @@ package com.leonardo.auth.spring.service;
 
 import com.leonardo.auth.spring.component.BCryptEncoderComponent;
 import com.leonardo.auth.spring.domain.User;
+import com.leonardo.auth.spring.enums.UserRoles;
 import com.leonardo.auth.spring.infra.exception.ErrorHandling;
 import com.leonardo.auth.spring.record.TokenJwtDTO;
 import com.leonardo.auth.spring.repository.CustomUserRepository;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -63,5 +65,13 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return customUserRepository.findAll();
+    }
+    public void updateUserRoles(String username, String userRoles) {
+        switch (userRoles.trim()) {
+            case "ADMIN" -> customUserRepository.updateUserRoles(username, UserRoles.ADMIN);
+            case "PREMIUM" -> customUserRepository.updateUserRoles(username, UserRoles.PREMIUM);
+            case "FREE" -> customUserRepository.updateUserRoles(username, UserRoles.FREE);
+            default -> throw new IllegalArgumentException("User role not recognized: " + userRoles);
+        }
     }
 }

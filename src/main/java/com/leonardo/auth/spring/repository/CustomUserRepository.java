@@ -1,6 +1,7 @@
 package com.leonardo.auth.spring.repository;
 
 import com.leonardo.auth.spring.domain.User;
+import com.leonardo.auth.spring.enums.UserRoles;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -31,4 +32,8 @@ public interface CustomUserRepository extends JpaRepository<User, Long> {
     @Transactional
     void deleteByIdAndUsername(Long id, String username);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE users u SET u.userRoles = ?2 WHERE u.username = ?1")
+    void updateUserRoles(String username, UserRoles userRoles);
 }
