@@ -13,10 +13,8 @@
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
 ## Description
-The RESTful API for Laboratory Internal Quality Control is designed to assist clinical and research laboratories in monitoring and controlling the quality of their processes. This API provides endpoints to manage information related to control standards, test results, statistical analyses, and other activities essential for ensuring the accuracy and reliability of laboratory data.
-
-## Implemented functionalities.
 A Spring Boot project to implement authentication, registration, password change, and recovery functionalities with spring security and JWT.
+
 ## Coming soon
 * Improve API documentation.
 
