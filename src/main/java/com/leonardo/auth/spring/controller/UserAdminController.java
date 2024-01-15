@@ -14,28 +14,24 @@ import java.util.List;
 public class UserAdminController {
 
     private final UserService userService;
-    @PatchMapping
     @PreAuthorize(("hasRole('ROLE_ADMIN)"))
-    @RequestMapping(value = "/users/logical-delete", method = RequestMethod.PATCH)
+    @PatchMapping("/users/logical-delete")
     public void logicalDeleteUser(String username, String email) {
         userService.logicalDeleteUser(username, email);
     }
 
-    @DeleteMapping
     @PreAuthorize(("hasRole('ROLE_ADMIN)"))
-    @RequestMapping(value = "/users/delete", method = RequestMethod.DELETE)
+    @DeleteMapping("/users/delete")
     public void deleteUserByIdAndUsername(Long id, String username) {
         userService.deleteUserByIdAndUsername(id, username);
     }
-    @GetMapping
     @PreAuthorize(("hasRole('ROLE_ADMIN)"))
-    @RequestMapping(value = "/users/get-all-users", method = RequestMethod.GET)
+    @GetMapping("/users/get-all-users")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
-    @PatchMapping
     @PreAuthorize(("hasRole('ROLE_ADMIN)"))
-    @RequestMapping(value = "/users/roles/update", method = RequestMethod.PATCH)
+    @PatchMapping("/users/roles/update")
     public void updateUserRoles(String username, String userRoles) {
         userService.updateUserRoles(username, userRoles);
     }

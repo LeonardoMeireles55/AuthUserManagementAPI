@@ -23,8 +23,10 @@ public class SpringDocConfigurations {
                 .info(new Info()
                         .title("AuthUserManagementAPI")
                         .description
-                                ("A Spring Boot project to implement authentication, registration," +
-                                        " password change, and recovery functionalities with spring security and JWT.")
+                                ("""
+                                        A Spring Boot project to implement authentication, registration,\
+                                         password change, and recovery functionalities with spring security and JWT.\
+                                        """)
                         .contact(new Contact()
                                 .name("Time Backend")
                                 .email("leomeireles55@hotmail.com"))

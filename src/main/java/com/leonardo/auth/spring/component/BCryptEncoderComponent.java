@@ -7,13 +7,11 @@ import org.springframework.stereotype.Component;
 public class BCryptEncoderComponent {
     public static Boolean decryptMatches(String pass, String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.matches(pass, password);
+            return passwordEncoder.matches(pass, password);
     }
 
     public static String encrypt(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(password);
+            return passwordEncoder.encode(password);
     }
-
-
 }

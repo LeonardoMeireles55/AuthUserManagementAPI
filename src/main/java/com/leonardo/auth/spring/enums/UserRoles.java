@@ -7,6 +7,7 @@ public enum UserRoles {
     FREE("FREE"),
     PREMIUM("PREMIUM"),
     ADMIN("ADMIN");
+
     private String roles;
 
     UserRoles(String role) {
