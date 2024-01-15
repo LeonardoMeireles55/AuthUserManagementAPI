@@ -34,7 +34,7 @@ In the project root directory, run the command:
 ```
 docker-compose up or docker compose up
 ```
-#### Step 3. you can Access API documentation
+#### Step 3. You can Access API documentation
 ```
 http://localhost:8090/swagger-ui.html
 ```
