@@ -38,6 +38,10 @@ docker-compose up or docker compose up
 ```
 http://localhost:8090/swagger-ui.html
 ```
+#### Step 4. Admin User
+```
+username:admin password:12345Admin@ for private routes.
+```
 
 
 
