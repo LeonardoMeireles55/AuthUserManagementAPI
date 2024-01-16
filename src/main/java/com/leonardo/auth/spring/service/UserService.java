@@ -20,11 +20,11 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
-    public User signUp(String userName, String firstName, String lastName, String dateBirth, String email, String password) {
+    public void signUp(String userName, String firstName, String lastName, String dateBirth, String email, String password) {
         var passEncoded = BCryptEncoderComponent.encrypt(password);
         var user = new User(userName, firstName, lastName, dateBirth, email, passEncoded);
 
-        return customUserRepository.save(user);
+        customUserRepository.save(user);
     }
 
     public TokenJwtDTO singIn(String username, String password) {
@@ -50,27 +50,40 @@ public class UserService {
         }
     }
 
-    public void logicalDeleteUser(String username, String email) {
-        var userToDisable = customUserRepository.getReferenceByFirstNameAndEmail(username, email);
-        if (userToDisable == null) {
-            throw new ErrorHandling.ResourceNotFoundException("user not found");
-        }
-        customUserRepository.logicalDelete(userToDisable.getUsername());
+    public void softDeletion(Long id) {
+        customUserRepository.softDeletion(id);
     }
 
-    public void deleteUserByIdAndUsername(Long id, String username) {
-        customUserRepository.deleteByIdAndUsername(id, username);
+    public void hardDeletion(Long id) {
+        customUserRepository.deleteById(id);
     }
 
     public List<User> getAllUsers() {
         return customUserRepository.findAll();
     }
-    public void updateUserRoles(String username, String userRoles) {
+
+    public void updateUserRoles(Long id, String userRoles) {
         switch (userRoles.trim()) {
-            case "ADMIN" -> customUserRepository.updateUserRoles(username, UserRoles.ADMIN);
-            case "PREMIUM" -> customUserRepository.updateUserRoles(username, UserRoles.PREMIUM);
-            case "FREE" -> customUserRepository.updateUserRoles(username, UserRoles.FREE);
+            case "ADMIN" -> customUserRepository.updateUserRoles(id, UserRoles.ADMIN);
+            case "PREMIUM" -> customUserRepository.updateUserRoles(id, UserRoles.PREMIUM);
+            case "FREE" -> customUserRepository.updateUserRoles(id, UserRoles.FREE);
             default -> throw new IllegalArgumentException("User role not recognized: " + userRoles);
         }
     }
+
+    public void toggleAccountNonExpiredById(Long id) {
+        customUserRepository.toggleAccountNonExpired(id);
+    }
+
+    public void toggleAccountNonLockedById(Long id) {
+        customUserRepository.toggleAccountNonLockedById(id);
+    }
+    public void toggleCredentialsNonExpiredById(Long id) {
+        customUserRepository.credentialsNonExpired(id);
+    }
+
+    public void toggleEnabledById(Long id) {
+        customUserRepository.toggleEnabledById(id);
+    }
 }
+

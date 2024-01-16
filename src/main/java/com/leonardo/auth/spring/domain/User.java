@@ -32,17 +32,17 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "is_enable")
-    private Boolean isEnable;
+    @Column(name = "enabled")
+    private Boolean enabled;
+    @Column(name = "account_non_expired")
+    private Boolean accountNonExpired;
+    @Column(name = "account_non_locked")
+    private Boolean accountNonLocked;
+    @Column(name = "credential_non_expired")
+    private Boolean credentialsNonExpired;
     @Enumerated(EnumType.STRING)
     @Column(name = "user_roles")
     private UserRoles userRoles;
-    @Column(name = "is_account_non_expired")
-    private Boolean isAccountNonExpired;
-    @Column(name = "is_account_non_locked")
-    private Boolean isAccountNonLocked;
-    @Column(name = "is_Credential_non_expired")
-    private Boolean isCredentialsNonExpired;
 
     public User(String userName, String firstName, String lastName, String dateBirth, String email, String password) {
         this.username = userName;
@@ -51,38 +51,39 @@ public class User implements UserDetails {
         this.dateBirth = dateBirth;
         this.email = email;
         this.password = password;
+        this.enabled = true;
+        this.accountNonExpired = true;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired = true;
         this.userRoles = UserRoles.FREE;
-        this.isEnable = true;
-        this.isAccountNonExpired = true;
-        this.isAccountNonLocked = true;
-        this.isCredentialsNonExpired = true;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.userRoles == UserRoles.ADMIN) {
-            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_FREE"),
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_FREE"),
                     new SimpleGrantedAuthority("ROLE_PREMIUM"));
         } else return List.of(new SimpleGrantedAuthority("ROLE_FREE"));
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return getIsAccountNonExpired();
+        return getAccountNonExpired();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return getIsAccountNonLocked();
+        return getAccountNonLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return getIsCredentialsNonExpired();
+        return getCredentialsNonExpired();
     }
 
     @Override
     public boolean isEnabled() {
-        return getIsEnable();
+        return getEnabled();
     }
 }

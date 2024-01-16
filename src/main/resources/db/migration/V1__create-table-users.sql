@@ -8,13 +8,13 @@ CREATE TABLE users (
     date_birth DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_enable BOOLEAN NOT NULL,
-    is_account_non_expired BOOLEAN NOT NULL,
-    is_account_non_locked BOOLEAN NOT NULL,
-    is_Credential_non_expired BOOLEAN NOT NULL,
+    enabled BOOLEAN DEFAULT TRUE NOT NULL,
+    account_non_expired BOOLEAN DEFAULT TRUE NOT NULL,
+    account_non_locked BOOLEAN DEFAULT TRUE NOT NULL,
+    credential_non_expired BOOLEAN DEFAULT TRUE NOT NULL,
     user_roles VARCHAR(25) NOT NULL,
     INDEX idx_username (username),
     INDEX idx_email (email),
-    INDEX idx_is_enable (is_enable),
+    INDEX idx_enabled (enabled),
     INDEX idx_user_roles (user_roles)
 );

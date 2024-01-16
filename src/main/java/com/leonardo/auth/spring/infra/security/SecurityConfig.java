@@ -41,16 +41,12 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .securityMatcher("/**")
                 .authorizeHttpRequests(
-                        auth -> auth.requestMatchers(HttpMethod.POST, "/users/sign-up").permitAll().
-                                requestMatchers(HttpMethod.POST, "/users/sign-in").permitAll()
+                        auth -> auth.requestMatchers(HttpMethod.POST, "/users/signUp").permitAll().
+                                requestMatchers(HttpMethod.POST, "/users/signIn").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users/password/update").permitAll()
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-ui")
                                 .permitAll()
-                                .requestMatchers(HttpMethod.GET, "/admin/users/get-all-users").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PATCH, "/admin/users/roles/update").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PATCH, "/admin/users/logical-delete").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/admin/users/deleteUser").hasRole("ADMIN")
-                                .anyRequest().authenticated()
+                                .anyRequest().hasRole("ADMIN")
                 ).httpBasic(Customizer.withDefaults()).oauth2ResourceServer(
                         conf -> conf.jwt(Customizer.withDefaults()));
         return http.build();

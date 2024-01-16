@@ -8,7 +8,7 @@ public enum UserRoles {
     PREMIUM("PREMIUM"),
     ADMIN("ADMIN");
 
-    private String roles;
+    private final String roles;
 
     UserRoles(String role) {
         this.roles = role;

@@ -26,14 +26,32 @@ public interface CustomUserRepository extends JpaRepository<User, Long> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE users u SET u.isEnable = false WHERE u.username = ?1")
-    void logicalDelete(String username);
+    @Query("UPDATE users u SET u.enabled = false WHERE u.id = ?1")
+    void softDeletion(Long id);
 
-    @Transactional
-    void deleteByIdAndUsername(Long id, String username);
 
     @Transactional
     @Modifying
-    @Query("UPDATE users u SET u.userRoles = ?2 WHERE u.username = ?1")
-    void updateUserRoles(String username, UserRoles userRoles);
+    @Query("UPDATE users u SET u.userRoles = ?2 WHERE u.id = ?1")
+    void updateUserRoles(Long id, UserRoles userRoles);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE users u SET u.accountNonExpired = NOT u.accountNonExpired WHERE u.id = ?1")
+    void toggleAccountNonExpired(Long id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE users u SET u.accountNonLocked = NOT u.accountNonLocked WHERE u.id = ?1")
+    void toggleAccountNonLockedById(Long id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE users u SET u.credentialsNonExpired = NOT u.credentialsNonExpired WHERE u.id = ?1")
+    void credentialsNonExpired(Long id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE users u SET u.enabled = NOT u.enabled WHERE u.id = ?1")
+    void toggleEnabledById(Long id);
 }
