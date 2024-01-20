@@ -44,9 +44,11 @@ public class SecurityConfig {
                         auth -> auth.requestMatchers(HttpMethod.POST, "/users/signUp").permitAll().
                                 requestMatchers(HttpMethod.POST, "/users/signIn").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users/password/update").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/users/password/generateForgotPasswordToken").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/users/password/recoveryForgotPassword").permitAll()
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-ui")
                                 .permitAll()
-                                .anyRequest().permitAll()
+                                .anyRequest().hasRole("ADMIN")
                 ).httpBasic(Customizer.withDefaults()).oauth2ResourceServer(
                         conf -> conf.jwt(Customizer.withDefaults()));
         return http.build();

@@ -44,12 +44,12 @@ public class UserController {
             return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("password/GenerateForgotPasswordToken")
+    @PostMapping("/password/generateForgotPasswordToken")
     public void generateForgotPassword(@Valid @RequestBody ForgotPassworDTO forgotPassworDTO) {
         userService.generateForgotPassword(forgotPassworDTO.email());
     }
 
-    @PatchMapping("password/recoveryForgotPassword")
+    @PatchMapping("/password/recoveryForgotPassword")
     public void recoveryForgotPassword(@Valid @RequestBody RecoveryForgotPasswordDTO forgotPasswordDTO) {
         userService.forgotPasswordUpdate(forgotPasswordDTO.username(),
                 forgotPasswordDTO.email(), forgotPasswordDTO.token(), forgotPasswordDTO.newPassword());

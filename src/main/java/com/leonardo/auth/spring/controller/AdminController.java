@@ -76,8 +76,8 @@ public class AdminController {
     }
 
     @PreAuthorize(("hasRole('ROLE_ADMIN)"))
-    @PutMapping("/users/changeValues")
-    public void changeValues(UserUpdateDTO userUpdateDTO) {
-        userService.updateUserData(userUpdateDTO.newUsername(), userUpdateDTO.newFirstName(), userUpdateDTO.newLastName(), userUpdateDTO.newEmail(), userUpdateDTO.userRoles());
+    @PutMapping("/users/updateUserData")
+    public void updateUserData(UserUpdateDTO userUpdateDTO) {
+        userService.updateUserData(userUpdateDTO.currentUsername(), userUpdateDTO.newFirstName(), userUpdateDTO.newLastName(), userUpdateDTO.newEmail(), userUpdateDTO.userRoles());
     }
 }

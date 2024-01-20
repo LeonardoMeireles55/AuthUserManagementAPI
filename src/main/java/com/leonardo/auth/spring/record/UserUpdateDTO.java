@@ -6,8 +6,6 @@ public record UserUpdateDTO(
     @NotBlank
     String currentUsername,
     @NotBlank
-    String newUsername,
-    @NotBlank
     String newFirstName,
     @NotBlank
     String newLastName,
