@@ -1,7 +1,7 @@
 package com.leonardo.auth.spring.controller;
 
 import com.leonardo.auth.spring.domain.User;
-import com.leonardo.auth.spring.record.AlterTableDTO;
+import com.leonardo.auth.spring.record.UserUpdateDTO;
 import com.leonardo.auth.spring.record.EmailDTO;
 import com.leonardo.auth.spring.service.EmailService;
 import com.leonardo.auth.spring.service.UserService;
@@ -77,7 +77,7 @@ public class AdminController {
 
     @PreAuthorize(("hasRole('ROLE_ADMIN)"))
     @PutMapping("/users/changeValues")
-    public void changeValues(AlterTableDTO alterTableDTO) {
-        userService.updateUserData(alterTableDTO.username(), alterTableDTO.firstName(), alterTableDTO.lastName(), alterTableDTO.email(), alterTableDTO.userRoles());
+    public void changeValues(UserUpdateDTO userUpdateDTO) {
+        userService.updateUserData(userUpdateDTO.newUsername(), userUpdateDTO.newFirstName(), userUpdateDTO.newLastName(), userUpdateDTO.newEmail(), userUpdateDTO.userRoles());
     }
 }

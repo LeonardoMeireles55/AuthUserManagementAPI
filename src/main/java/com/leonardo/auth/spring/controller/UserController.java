@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
+
     private UserService userService;
 
     @Transactional
@@ -43,13 +44,14 @@ public class UserController {
             return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("password/forgotPassword")
-    public void forgotPassword(@Valid @RequestBody ForgotPassworDTO forgotPassworDTO) {
-        userService.forgotPassword(forgotPassworDTO.email());
+    @PostMapping("password/GenerateForgotPasswordToken")
+    public void generateForgotPassword(@Valid @RequestBody ForgotPassworDTO forgotPassworDTO) {
+        userService.generateForgotPassword(forgotPassworDTO.email());
     }
 
     @PatchMapping("password/recoveryForgotPassword")
     public void recoveryForgotPassword(@Valid @RequestBody RecoveryForgotPasswordDTO forgotPasswordDTO) {
-        userService.forgotPasswordUpdate(forgotPasswordDTO.username(), forgotPasswordDTO.email(), forgotPasswordDTO.token(), forgotPasswordDTO.newPassword());
+        userService.forgotPasswordUpdate(forgotPasswordDTO.username(),
+                forgotPasswordDTO.email(), forgotPasswordDTO.token(), forgotPasswordDTO.newPassword());
     }
 }

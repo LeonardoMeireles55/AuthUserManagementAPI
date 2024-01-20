@@ -2,19 +2,19 @@ package com.leonardo.auth.spring.record;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record AlterTableDTO(
+public record UserUpdateDTO(
     @NotBlank
-    String username,
+    String currentUsername,
     @NotBlank
-    String firstName,
+    String newUsername,
     @NotBlank
-    String lastName,
+    String newFirstName,
     @NotBlank
-    String dateBirth,
+    String newLastName,
     @NotBlank
-    String email,
+    String newDateBirth,
     @NotBlank
-    String password,
+    String newEmail,
     @NotBlank
     String userRoles
 ) {

@@ -29,6 +29,9 @@ public class UserService {
     private final JwtService jwtService;
     private final EmailService emailService;
 
+    public List<User> getAllUsers() {
+        return userRepositoryCustom.findAll();
+    }
 
     public void signUp(String userName, String firstName, String lastName, String dateBirth, String email,
                        String password) {
@@ -38,9 +41,9 @@ public class UserService {
         userRepositoryCustom.save(user);
     }
 
-    public void forgotPassword(String email) {
+    public void generateForgotPassword(String email) {
         if (!userRepositoryCustom.existsByEmail(email)) {
-            throw new ErrorHandling.ResourceNotFoundException("Not exists");
+            throw new ErrorHandling.ResourceNotFoundException("User not exists");
         }
         var userCurrentPassword = userRepositoryCustom.getReferenceByEmail(email);
         String recoveryToken = UUID.randomUUID().toString();
@@ -84,10 +87,6 @@ public class UserService {
                     .setPasswordWhereByUsername(userCurrentPassword.getUsername(),
                             BCryptEncoderComponent.encrypt(newPassword));
         }
-    }
-
-    public List<User> getAllUsers() {
-        return userRepositoryCustom.findAll();
     }
 
     public void softDeletion(Long id) {

@@ -15,7 +15,7 @@ public class EmailService {
 
     public void sendEmail(EmailDTO email) {
         var message = new SimpleMailMessage();
-        message.setFrom("noreply@email.com");
+        message.setFrom("noreply@newEmail.com");
         message.setTo(email.to());
         message.setSubject(email.subject());
         message.setText(email.body());
