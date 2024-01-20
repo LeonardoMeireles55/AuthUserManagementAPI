@@ -7,7 +7,6 @@ import com.leonardo.auth.spring.record.TokenJwtDTO;
 import com.leonardo.auth.spring.record.UserDTO;
 import com.leonardo.auth.spring.record.UserPasswordUpdateDTO;
 import com.leonardo.auth.spring.service.UserService;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserService userService;
+    private UserService userService;
 
     @Transactional
     @PostMapping("/signUp")
@@ -39,8 +38,7 @@ public class UserController {
     @PatchMapping("/password/update")
     public ResponseEntity<Void>
     updatePassword(@Valid @RequestBody UserPasswordUpdateDTO userPasswordUpdateDTO, String newPassword) {
-        userService.passwordUpdate(userPasswordUpdateDTO.firstName(),
-                userPasswordUpdateDTO.email(), userPasswordUpdateDTO.currentPassword(),
+        userService.passwordUpdate(userPasswordUpdateDTO.username(), userPasswordUpdateDTO.currentPassword(),
                 userPasswordUpdateDTO.newPassword());
             return ResponseEntity.noContent().build();
     }

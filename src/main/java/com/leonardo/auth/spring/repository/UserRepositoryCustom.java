@@ -11,11 +11,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomUserRepository extends JpaRepository<User, Long> {
+public interface UserRepositoryCustom extends JpaRepository<User, Long> {
 
     User findByUsername(String userName);
 
-    User getReferenceByUsernameAndEmail(String userName, String Email);
+    User getReferenceByUsername(String userName);
 
     User getReferenceByEmail(String Email);
 
@@ -24,7 +24,7 @@ public interface CustomUserRepository extends JpaRepository<User, Long> {
     @Query("UPDATE users u SET u.password = ?2 WHERE u.username = ?1")
     void setPasswordWhereByUsername(String username, String newPassword);
 
-    boolean existsByUsername(String name);
+    boolean existsByUsername(String userName);
 
     boolean existsByEmail(String email);
 
