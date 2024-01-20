@@ -1,7 +1,13 @@
 package com.leonardo.auth.spring.controller;
 
 import com.leonardo.auth.spring.domain.User;
+import com.leonardo.auth.spring.record.AlterTableDTO;
+import com.leonardo.auth.spring.record.EmailDTO;
+import com.leonardo.auth.spring.record.UserDTO;
+import com.leonardo.auth.spring.service.EmailService;
 import com.leonardo.auth.spring.service.UserService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +20,13 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
+    private final EmailService emailService;
+
+    @PreAuthorize(("hasRole('ROLE_ADMIN)"))
+    @PostMapping("/sendEmail")
+    public void sendEmail(@Valid @RequestBody EmailDTO email) {
+        emailService.sendEmail(email);
+    }
 
     @PreAuthorize(("hasRole('ROLE_ADMIN)"))
     @PatchMapping("/users/softDeletion")
@@ -61,5 +74,11 @@ public class AdminController {
     @PatchMapping("/users/roles/update")
     public void updateUserRoles(Long id, String userRoles) {
         userService.updateUserRoles(id, userRoles);
+    }
+
+    @PreAuthorize(("hasRole('ROLE_ADMIN)"))
+    @PutMapping("/users/changeValues")
+    public void changeValues(AlterTableDTO alterTableDTO) {
+        userService.changeValues(alterTableDTO.username(), alterTableDTO.firstName(), alterTableDTO.lastName(), alterTableDTO.email(), alterTableDTO.userRoles());
     }
 }

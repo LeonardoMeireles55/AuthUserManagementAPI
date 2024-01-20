@@ -46,7 +46,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/users/password/update").permitAll()
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-ui")
                                 .permitAll()
-                                .anyRequest().hasRole("ADMIN")
+                                .anyRequest().permitAll()
                 ).httpBasic(Customizer.withDefaults()).oauth2ResourceServer(
                         conf -> conf.jwt(Customizer.withDefaults()));
         return http.build();

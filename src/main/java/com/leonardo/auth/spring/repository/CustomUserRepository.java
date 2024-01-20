@@ -2,18 +2,22 @@ package com.leonardo.auth.spring.repository;
 
 import com.leonardo.auth.spring.domain.User;
 import com.leonardo.auth.spring.enums.UserRoles;
+
+import io.micrometer.common.lang.NonNull;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CustomUserRepository extends JpaRepository<User, Long> {
-    UserDetails findByUsername(String userName);
 
-    UserDetails getReferenceByFirstNameAndEmail(String userName, String Email);
+    User findByUsername(String userName);
+
+    User getReferenceByUsernameAndEmail(String userName, String Email);
+
+    User getReferenceByEmail(String Email);
 
     @Transactional
     @Modifying
@@ -27,9 +31,8 @@ public interface CustomUserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Modifying
     @Query("UPDATE users u SET u.enabled = false WHERE u.id = ?1")
-    void softDeletion(Long id);
-
-
+    void softDeletion(@NonNull Long id);
+ 
     @Transactional
     @Modifying
     @Query("UPDATE users u SET u.userRoles = ?2 WHERE u.id = ?1")

@@ -1,10 +1,14 @@
 package com.leonardo.auth.spring.controller;
 
+import com.leonardo.auth.spring.record.ForgotPassworDTO;
+import com.leonardo.auth.spring.record.RecoveryForgotPasswordDTO;
 import com.leonardo.auth.spring.record.SignInDTO;
 import com.leonardo.auth.spring.record.TokenJwtDTO;
 import com.leonardo.auth.spring.record.UserDTO;
 import com.leonardo.auth.spring.record.UserPasswordUpdateDTO;
 import com.leonardo.auth.spring.service.UserService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,10 +38,20 @@ public class UserController {
     @Transactional
     @PatchMapping("/password/update")
     public ResponseEntity<Void>
-    updatePassword(@RequestBody UserPasswordUpdateDTO userPasswordUpdateDTO, String newPassword) {
+    updatePassword(@Valid @RequestBody UserPasswordUpdateDTO userPasswordUpdateDTO, String newPassword) {
         userService.passwordUpdate(userPasswordUpdateDTO.firstName(),
                 userPasswordUpdateDTO.email(), userPasswordUpdateDTO.currentPassword(),
                 userPasswordUpdateDTO.newPassword());
             return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("password/forgotPassword")
+    public void forgotPassword(@Valid @RequestBody ForgotPassworDTO forgotPassworDTO) {
+        userService.forgotPassword(forgotPassworDTO.email());
+    }
+
+    @PatchMapping("password/recoveryForgotPassword")
+    public void recoveryForgotPassword(@Valid @RequestBody RecoveryForgotPasswordDTO forgotPasswordDTO) {
+        userService.forgotPasswordUpdate(forgotPasswordDTO.username(), forgotPasswordDTO.email(), forgotPasswordDTO.token(), forgotPasswordDTO.newPassword());
     }
 }
